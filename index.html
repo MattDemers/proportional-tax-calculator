@@ -116,7 +116,7 @@
 
             useEffect(() => {
                 updateCategoryTaxes();
-            }, [total, subtotal]);
+            }, [total, subtotal, categories]);
 
             const updateCategoryTaxes = () => {
                 if (!total || !subtotal) {
@@ -134,12 +134,14 @@
                 const subtotalAmount = parseFloat(subtotal);
                 const taxAmount = totalAmount - subtotalAmount;
 
+                if (isNaN(taxAmount)) return;
+
                 setCategories(prevCategories => 
                     prevCategories.map(cat => {
                         if (!cat.amount) return { ...cat, taxPortion: '0.00', total: '0.00' };
                         
-                        const amount = parseFloat(cat.amount);
-                        const proportion = amount / subtotalAmount;
+                        const amount = parseFloat(cat.amount) || 0;
+                        const proportion = subtotalAmount !== 0 ? amount / subtotalAmount : 0;
                         const taxPortion = (proportion * taxAmount).toFixed(2);
                         const categoryTotal = (amount + parseFloat(taxPortion)).toFixed(2);
                         
@@ -172,7 +174,15 @@
                 setCategories(prev => 
                     prev.map(category => {
                         if (category.id === id) {
-                            return { ...category, [field]: value };
+                            const updatedCategory = { ...category, [field]: value };
+                            if (field === 'amount' && total && subtotal) {
+                                const amount = parseFloat(value) || 0;
+                                const totalTax = parseFloat(total) - parseFloat(subtotal);
+                                const proportion = amount / parseFloat(subtotal);
+                                updatedCategory.taxPortion = (proportion * totalTax).toFixed(2);
+                                updatedCategory.total = (amount + parseFloat(updatedCategory.taxPortion)).toFixed(2);
+                            }
+                            return updatedCategory;
                         }
                         return category;
                     })
