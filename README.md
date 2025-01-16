@@ -4,6 +4,10 @@ This calculator is used with budgeting programs/databases like [Actual](https://
 
 These programs may allow you to split one transaction among multiple categories. However, this creates a problem with the remaining amount of tax, and how it's distributed among the categories.
 
+[The calculator](https://github.com/MattDemers/proportional-tax-calculator/) is to allow you to find out how much you should add to your category split amounts to account for the tax. YNAB4 used to do this on its own, but "New YNAB" does not.
+
+[**Access the calculator here**](https://github.com/MattDemers/proportional-tax-calculator/) - It does everything locally, and doesn't store your information.
+
 ## Example 1: A grocery trip
 
 I go to a grocery store, and my total comes to $110, including tax. Looking at my receipt, I see a number of items with amounts that don't include tax:
