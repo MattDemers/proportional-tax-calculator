@@ -56,7 +56,6 @@
             @apply h-8 w-8 p-0 rounded-md flex items-center justify-center;
         }
 
-        /* Custom styles for specific components */
         .tax-amount-display {
             @apply bg-zinc-100 p-2 rounded-md text-right font-medium text-zinc-900;
         }
@@ -205,19 +204,17 @@
                 sum + (parseFloat(cat.total) || 0), 0
             ).toFixed(2);
 
-            // Rest of the component logic remains the same, just updating the JSX...
-
             return (
-                <div class="max-w-4xl mx-auto">
-                    <div class="card">
-                        <div class="p-6">
-                            <h2 class="text-2xl font-semibold text-zinc-900 mb-6">Tax Distribution Calculator</h2>
+                <div className="max-w-4xl mx-auto">
+                    <div className="card">
+                        <div className="p-6">
+                            <h2 className="text-2xl font-semibold text-zinc-900 mb-6">Tax Distribution Calculator</h2>
                             
-                            <div class="space-y-6">
+                            <div className="space-y-6">
                                 {/* Main inputs */}
-                                <div class="grid grid-cols-3 gap-4">
+                                <div className="grid grid-cols-3 gap-4">
                                     <div>
-                                        <label class="block text-sm font-medium mb-1.5 text-zinc-900">Total (with tax)</label>
+                                        <label className="block text-sm font-medium mb-1.5 text-zinc-900">Total (with tax)</label>
                                         <input
                                             type="number"
                                             step="0.01"
@@ -225,11 +222,11 @@
                                             value={total}
                                             onChange={(e) => setTotal(e.target.value)}
                                             placeholder="Enter total amount"
-                                            class="input"
+                                            className="input"
                                         />
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1.5 text-zinc-900">Subtotal</label>
+                                        <label className="block text-sm font-medium mb-1.5 text-zinc-900">Subtotal</label>
                                         <input
                                             type="number"
                                             step="0.01"
@@ -237,33 +234,33 @@
                                             value={subtotal}
                                             onChange={(e) => setSubtotal(e.target.value)}
                                             placeholder="Enter subtotal"
-                                            class="input"
+                                            className="input"
                                         />
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1.5 text-zinc-900">Tax Amount</label>
-                                        <div class="tax-amount-display">
+                                        <label className="block text-sm font-medium mb-1.5 text-zinc-900">Tax Amount</label>
+                                        <div className="tax-amount-display">
                                             ${total && subtotal ? (parseFloat(total) - parseFloat(subtotal)).toFixed(2) : '0.00'}
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Categories */}
-                                <div class="space-y-4">
-                                    <div class="grid grid-cols-4 gap-4">
-                                        <div class="header-cell">Category</div>
-                                        <div class="header-cell">Amount (pre-tax)</div>
-                                        <div class="header-cell">Tax Portion</div>
-                                        <div class="header-cell">Total</div>
+                                <div className="space-y-4">
+                                    <div className="grid grid-cols-4 gap-4">
+                                        <div className="header-cell">Category</div>
+                                        <div className="header-cell">Amount (pre-tax)</div>
+                                        <div className="header-cell">Tax Portion</div>
+                                        <div className="header-cell">Total</div>
                                     </div>
                                     
                                     {categories.map((category) => (
-                                        <div key={category.id} class="grid grid-cols-4 gap-4 items-center">
+                                        <div key={category.id} className="grid grid-cols-4 gap-4 items-center">
                                             <input
                                                 value={category.name}
                                                 onChange={(e) => handleCategoryChange(category.id, 'name', e.target.value)}
                                                 placeholder="Category name"
-                                                class="input"
+                                                className="input"
                                             />
                                             <input
                                                 type="number"
@@ -272,14 +269,14 @@
                                                 value={category.amount}
                                                 onChange={(e) => handleCategoryChange(category.id, 'amount', e.target.value)}
                                                 placeholder="0.00"
-                                                class={`input ${subtotal && !validateAmounts().isValid ? 'border-red-500 ring-red-500' : ''}`}
+                                                className={`input ${subtotal && !validateAmounts().isValid ? 'border-red-500 ring-red-500' : ''}`}
                                             />
-                                            <div class="numeric-cell">${category.taxPortion}</div>
-                                            <div class="flex items-center justify-between">
-                                                <span class="numeric-cell">${category.total}</span>
+                                            <div className="numeric-cell">${category.taxPortion}</div>
+                                            <div className="flex items-center justify-between">
+                                                <span className="numeric-cell">${category.total}</span>
                                                 <button 
                                                     onClick={() => removeCategory(category.id)}
-                                                    class="btn btn-ghost icon-button"
+                                                    className="btn btn-ghost icon-button"
                                                     title="Remove category"
                                                 >
                                                     <TrashIcon />
@@ -288,16 +285,16 @@
                                         </div>
                                     ))}
 
-                                    <button onClick={addCategory} class="btn btn-outline w-full">
+                                    <button onClick={addCategory} className="btn btn-outline w-full">
                                         <PlusIcon />
-                                        <span class="ml-2">Add Category</span>
+                                        <span className="ml-2">Add Category</span>
                                     </button>
                                 </div>
 
                                 {/* Validation Message */}
                                 {subtotal && (
-                                    <div class={`p-4 rounded-lg ${validateAmounts().isValid ? 'validation-success' : 'validation-error'}`}>
-                                        <div class="text-sm">
+                                    <div className={`p-4 rounded-lg ${validateAmounts().isValid ? 'validation-success' : 'validation-error'}`}>
+                                        <div className="text-sm">
                                             {validateAmounts().isValid ? (
                                                 'Category amounts match subtotal ✓'
                                             ) : (
@@ -311,27 +308,27 @@
                                 )}
 
                                 {/* Totals */}
-                                <div class="space-y-2 pt-4 border-t border-zinc-200">
-                                    <div class="grid grid-cols-2 total-row">
+                                <div className="space-y-2 pt-4 border-t border-zinc-200">
+                                    <div className="grid grid-cols-2 total-row">
                                         <span>Total Pre-Tax Amount:</span>
-                                        <span class={`text-right ${subtotal && !validateAmounts().isValid ? 'text-red-600' : 'total-amount'}`}>
+                                        <span className={`text-right ${subtotal && !validateAmounts().isValid ? 'text-red-600' : 'total-amount'}`}>
                                             ${totalPreTaxAmount}
                                         </span>
                                     </div>
-                                    <div class="grid grid-cols-2 total-row">
+                                    <div className="grid grid-cols-2 total-row">
                                         <span>Total Tax Allocated:</span>
-                                        <span class="text-right total-amount">${totalTaxAllocated}</span>
+                                        <span className="text-right total-amount">${totalTaxAllocated}</span>
                                     </div>
-                                    <div class="grid grid-cols-2 total-row">
+                                    <div className="grid grid-cols-2 total-row">
                                         <span>Total Amount (with tax):</span>
-                                        <span class="text-right total-amount">${totalAmountWithTax}</span>
+                                        <span className="text-right total-amount">${totalAmountWithTax}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-4 text-center text-sm text-zinc-500">
+                    <div className="mt-4 text-center text-sm text-zinc-500">
                         Tax Distribution Calculator • No data is stored • Calculations are performed locally
                     </div>
                 </div>
@@ -341,9 +338,5 @@
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<SalesTaxCalculator />);
     </script>
-    <!-- Production Note -->
-    <div class="fixed bottom-0 left-0 right-0 p-2 bg-yellow-50 text-yellow-800 text-xs text-center">
-        Note: For production use, precompile this script using Babel. See: https://babeljs.io/docs/setup/
-    </div>
 </body>
 </html>
