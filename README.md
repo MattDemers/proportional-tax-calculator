@@ -20,8 +20,7 @@ My subtotal, before taxes, is $95. This leaves $15 remaining that was the tax I 
 
 I'd like to calculate how much of this remainder I should assign to each category to represent the **proportion** of the tax it's responsible for.
 
-This is how we'd enter it into the calculator:
-
+Below is a screenshot of how we'd add it to the calculator. We only need to add our Total (with tax), Subtotal, Categories, and Amount (pre-tax), and the calculator does the rest.
 ![](/Images/screenshot.png)
 
 As text:
