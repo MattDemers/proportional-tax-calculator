@@ -115,6 +115,96 @@
                 { id: 1, name: '', amount: '', taxPortion: '0.00', total: '0.00' }
             ]);
 
+            useEffect(() => {
+                updateCategoryTaxes();
+            }, [total, subtotal]);
+
+            const updateCategoryTaxes = () => {
+                if (!total || !subtotal) {
+                    setCategories(prevCategories => 
+                        prevCategories.map(cat => ({
+                            ...cat,
+                            taxPortion: '0.00',
+                            total: cat.amount ? parseFloat(cat.amount).toFixed(2) : '0.00'
+                        }))
+                    );
+                    return;
+                }
+
+                const totalAmount = parseFloat(total);
+                const subtotalAmount = parseFloat(subtotal);
+                const taxAmount = totalAmount - subtotalAmount;
+
+                setCategories(prevCategories => 
+                    prevCategories.map(cat => {
+                        if (!cat.amount) return { ...cat, taxPortion: '0.00', total: '0.00' };
+                        
+                        const amount = parseFloat(cat.amount);
+                        const proportion = amount / subtotalAmount;
+                        const taxPortion = (proportion * taxAmount).toFixed(2);
+                        const categoryTotal = (amount + parseFloat(taxPortion)).toFixed(2);
+                        
+                        return {
+                            ...cat,
+                            taxPortion,
+                            total: categoryTotal
+                        };
+                    })
+                );
+            };
+
+            const addCategory = () => {
+                const newId = Math.max(...categories.map(cat => cat.id), 0) + 1;
+                setCategories(prev => [...prev, {
+                    id: newId,
+                    name: '',
+                    amount: '',
+                    taxPortion: '0.00',
+                    total: '0.00'
+                }]);
+            };
+
+            const removeCategory = (id) => {
+                if (categories.length === 1) return;
+                setCategories(prev => prev.filter(cat => cat.id !== id));
+            };
+
+            const handleCategoryChange = (id, field, value) => {
+                setCategories(prev => 
+                    prev.map(category => {
+                        if (category.id === id) {
+                            return { ...category, [field]: value };
+                        }
+                        return category;
+                    })
+                );
+            };
+
+            const validateAmounts = () => {
+                if (!subtotal) return { isValid: true, difference: 0 };
+                
+                const totalAmount = categories.reduce((sum, cat) => 
+                    sum + (parseFloat(cat.amount) || 0), 0
+                );
+                
+                return {
+                    isValid: Math.abs(totalAmount - parseFloat(subtotal)) < 0.01,
+                    difference: (totalAmount - parseFloat(subtotal)).toFixed(2)
+                };
+            };
+
+            const totalPreTaxAmount = categories.reduce((sum, cat) => 
+                sum + (parseFloat(cat.amount) || 0), 0
+            ).toFixed(2);
+
+            const totalTaxAllocated = categories.reduce((sum, cat) => 
+                sum + (parseFloat(cat.taxPortion) || 0), 0
+            ).toFixed(2);
+
+            const totalAmountWithTax = categories.reduce((sum, cat) => 
+                sum + (parseFloat(cat.total) || 0), 0
+            ).toFixed(2);
+
             // Rest of the component logic remains the same, just updating the JSX...
 
             return (
@@ -251,5 +341,9 @@
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<SalesTaxCalculator />);
     </script>
+    <!-- Production Note -->
+    <div class="fixed bottom-0 left-0 right-0 p-2 bg-yellow-50 text-yellow-800 text-xs text-center">
+        Note: For production use, precompile this script using Babel. See: https://babeljs.io/docs/setup/
+    </div>
 </body>
 </html>
