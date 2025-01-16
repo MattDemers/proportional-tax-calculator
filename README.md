@@ -4,9 +4,9 @@ This calculator is used with budgeting programs/databases like [Actual](https://
 
 These programs may allow you to split one transaction among multiple categories. However, this creates a problem with the remaining amount of tax, and how it's distributed among the categories. If one category, for instance, is responsible of 75% of the subtotal, I'd like 75% of the remaining unassigned tax to go to that category.
 
-[The calculator](https://github.com/MattDemers/proportional-tax-calculator/) is to allow you to find out how much you should add to your category split amounts to account for the tax. YNAB4 used to do this on its own, but "New YNAB" does not.
+[The calculator](https://mattdemers.github.io/proportional-tax-calculator/) is to allow you to find out how much you should add to your category split amounts to account for the tax. YNAB4 used to do this on its own, but "New YNAB" does not.
 
-[**⏩ Access the calculator 🧮 here ⏪**](https://github.com/MattDemers/proportional-tax-calculator/) - It does everything locally, and doesn't store your information.
+[**⏩ Access the calculator 🧮 here ⏪**](https://mattdemers.github.io/proportional-tax-calculator/) - It does everything locally, and doesn't store your information.
 
 ## Example 1: A grocery trip
 
