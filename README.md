@@ -16,7 +16,11 @@ My subtotal, before taxes, is $95. This leaves $15 remaining that was the tax I 
 
 I'd like to calculate how much of this remainder I should assign to each category to represent the **proportion** of the tax it's responsible for.
 
-For example:
+This is how we'd enter it into the calculator:
+
+![](/Images/screenshot.png)
+
+As text:
 
 | **Category** | **Amount (Pre-Tax)** | **Tax Proportion** | **Total (Including Tax)** |
 |--------------|:----------------------:|:--------------------:|:-----------:|
@@ -27,3 +31,4 @@ For example:
 The total of the above "Tax Proportion" column is $15 (the amount of unassigned money, the remaining tax).
 
 The total of the above "Total (Including Tax)" column is $110 (the total on the receipt, including tax).
+
