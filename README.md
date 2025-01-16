@@ -6,7 +6,7 @@ These programs may allow you to split one transaction among multiple categories.
 
 [The calculator](https://github.com/MattDemers/proportional-tax-calculator/) is to allow you to find out how much you should add to your category split amounts to account for the tax. YNAB4 used to do this on its own, but "New YNAB" does not.
 
-[**Access the calculator here**](https://github.com/MattDemers/proportional-tax-calculator/) - It does everything locally, and doesn't store your information.
+[**⏩ Access the calculator 🧮 here ⏪**](https://github.com/MattDemers/proportional-tax-calculator/) - It does everything locally, and doesn't store your information.
 
 ## Example 1: A grocery trip
 
