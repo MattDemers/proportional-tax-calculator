@@ -57,9 +57,9 @@ const SalesTaxCalculator = () => {
     }, [categories]);
 
     return (
-        <div>
-            <h1>Proportional Tax Calculator</h1>
-            <table>
+        <div className="container mx-auto">
+            <h1 className="text-2xl font-bold mb-4">Proportional Tax Calculator</h1>
+            <table className="min-w-full bg-white">
                 <thead>
                     <tr>
                         <th className="header-cell">Category</th>
@@ -77,6 +77,7 @@ const SalesTaxCalculator = () => {
                                     type="text"
                                     value={category.name}
                                     onChange={(e) => handleCategoryChange(category.id, 'name', e.target.value)}
+                                    className="border p-2 rounded"
                                 />
                             </td>
                             <td>
@@ -84,12 +85,13 @@ const SalesTaxCalculator = () => {
                                     type="number"
                                     value={category.amount}
                                     onChange={(e) => handleCategoryChange(category.id, 'amount', e.target.value)}
+                                    className="border p-2 rounded"
                                 />
                             </td>
                             <td className="numeric-cell">{category.taxPortion}</td>
                             <td className="numeric-cell">{category.total}</td>
                             <td>
-                                <button onClick={() => removeCategory(category.id)}>
+                                <button onClick={() => removeCategory(category.id)} className="p-2">
                                     <TrashIcon />
                                 </button>
                             </td>
@@ -109,7 +111,7 @@ const SalesTaxCalculator = () => {
                     </tr>
                 </tfoot>
             </table>
-            <button onClick={addCategory}>
+            <button onClick={addCategory} className="mt-4">
                 <PlusIcon /> Add Category
             </button>
         </div>
