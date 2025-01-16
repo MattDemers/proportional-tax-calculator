@@ -1,0 +1,20 @@
+/proportional-tax-calculator/styles.css */
+.validation-error {
+    @apply bg-red-50 text-red-800 border border-red-200;
+}
+
+.header-cell {
+    @apply font-medium text-sm text-zinc-500;
+}
+
+.numeric-cell {
+    @apply text-right font-medium text-zinc-900;
+}
+
+.total-row {
+    @apply text-sm text-zinc-600;
+}
+
+.total-amount {
+    @apply font-medium text-zinc-900;
+}
