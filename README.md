@@ -32,3 +32,6 @@ The total of the above "Tax Proportion" column is $15 (the amount of unassigned 
 
 The total of the above "Total (Including Tax)" column is $110 (the total on the receipt, including tax).
 
+---
+
+This was made with Anthropic's Claude 3.5 (Sonnet)'s help.
