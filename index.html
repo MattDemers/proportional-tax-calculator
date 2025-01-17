@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tax Distribution Calculator</title>
+
+    <link rel="stylesheet" href="styles.css">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -22,6 +24,8 @@
         /* Base styles */
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light blue background */
+            color: #333; /* Dark grey text */
         }
 
         /* shadcn/ui-like components */
@@ -83,6 +87,22 @@
         .total-amount {
             @apply font-medium text-zinc-900;
         }
+
+        .main-inputs {
+            @apply bg-zinc-100 p-4 rounded-md shadow-sm;
+        }
+
+        .categories {
+            @apply bg-zinc-100 p-4 rounded-md shadow-sm;
+        }
+
+        .validation-message {
+            @apply p-4 rounded-lg;
+        }
+
+        .totals {
+            @apply bg-zinc-100 p-4 rounded-md shadow-sm;
+        }
     </style>
 </head>
 <body class="bg-zinc-50 min-h-screen p-4">
@@ -113,9 +133,15 @@
             const [categories, setCategories] = useState([
                 { id: 1, name: '', amount: '', taxPortion: '0.00', total: '0.00' }
             ]);
+            const [error, setError] = useState('');
 
             useEffect(() => {
-                updateCategoryTaxes();
+                if (parseFloat(total) < parseFloat(subtotal)) {
+                    setError('Total (with tax) cannot be less than Subtotal');
+                } else {
+                    setError('');
+                    updateCategoryTaxes();
+                }
             }, [total, subtotal, categories]);
 
             const updateCategoryTaxes = () => {
@@ -222,30 +248,36 @@
                             
                             <div className="space-y-6">
                                 {/* Main inputs */}
-                                <div className="grid grid-cols-3 gap-4">
+                                <div className="main-inputs grid grid-cols-3 gap-4">
                                     <div>
                                         <label className="block text-sm font-medium mb-1.5 text-zinc-900">Total (with tax)</label>
-                                        <input
-                                            type="number"
-                                            step="0.01"
-                                            min="0"
-                                            value={total}
-                                            onChange={(e) => setTotal(e.target.value)}
-                                            placeholder="Enter total amount"
-                                            className="input"
-                                        />
+                                        <div className="relative">
+                                            <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-500">$</span>
+                                            <input
+                                                type="number"
+                                                step="0.01"
+                                                min="0"
+                                                value={total}
+                                                onChange={(e) => setTotal(e.target.value)}
+                                                placeholder="Enter total amount"
+                                                className="input pl-7"
+                                            />
+                                        </div>
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium mb-1.5 text-zinc-900">Subtotal</label>
-                                        <input
-                                            type="number"
-                                            step="0.01"
-                                            min="0"
-                                            value={subtotal}
-                                            onChange={(e) => setSubtotal(e.target.value)}
-                                            placeholder="Enter subtotal"
-                                            className="input"
-                                        />
+                                        <div className="relative">
+                                            <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-500">$</span>
+                                            <input
+                                                type="number"
+                                                step="0.01"
+                                                min="0"
+                                                value={subtotal}
+                                                onChange={(e) => setSubtotal(e.target.value)}
+                                                placeholder="Enter subtotal"
+                                                className="input pl-7"
+                                            />
+                                        </div>
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium mb-1.5 text-zinc-900">Tax Amount</label>
@@ -255,8 +287,15 @@
                                     </div>
                                 </div>
 
+                                {/* Error Message */}
+                                {error && (
+                                    <div className="validation-error validation-message">
+                                        <div className="text-sm">{error}</div>
+                                    </div>
+                                )}
+
                                 {/* Categories */}
-                                <div className="space-y-4">
+                                <div className="categories space-y-4">
                                     <div className="grid grid-cols-4 gap-4">
                                         <div className="header-cell">Category</div>
                                         <div className="header-cell">Amount (pre-tax)</div>
@@ -270,7 +309,8 @@
                                                 value={category.name}
                                                 onChange={(e) => handleCategoryChange(category.id, 'name', e.target.value)}
                                                 placeholder="Category name"
-                                                className="input"
+                                                className={`input ${error ? 'bg-red-100' : ''}`}
+                                                disabled={!!error}
                                             />
                                             <input
                                                 type="number"
@@ -279,7 +319,8 @@
                                                 value={category.amount}
                                                 onChange={(e) => handleCategoryChange(category.id, 'amount', e.target.value)}
                                                 placeholder="0.00"
-                                                className={`input ${subtotal && !validateAmounts().isValid ? 'border-red-500 ring-red-500' : ''}`}
+                                                className={`input ${error ? 'bg-red-100' : ''}`}
+                                                disabled={!!error}
                                             />
                                             <div className="numeric-cell">${category.taxPortion}</div>
                                             <div className="flex items-center justify-between">
@@ -288,6 +329,7 @@
                                                     onClick={() => removeCategory(category.id)}
                                                     className="btn btn-ghost icon-button"
                                                     title="Remove category"
+                                                    disabled={!!error}
                                                 >
                                                     <TrashIcon />
                                                 </button>
@@ -295,15 +337,15 @@
                                         </div>
                                     ))}
 
-                                    <button onClick={addCategory} className="btn btn-outline w-full">
+                                    <button onClick={addCategory} className="btn btn-outline w-full" disabled={!!error}>
                                         <PlusIcon />
-                                        <span className="ml-2">Add Category</span>
+                                        <span className="add-category-button">Add Category</span>
                                     </button>
-                                </div>
+                                </div>      
 
                                 {/* Validation Message */}
-                                {subtotal && (
-                                    <div className={`p-4 rounded-lg ${validateAmounts().isValid ? 'validation-success' : 'validation-error'}`}>
+                                {subtotal && !error && (
+                                    <div className={`validation-message ${validateAmounts().isValid ? 'validation-success' : 'validation-error'}`}>
                                         <div className="text-sm">
                                             {validateAmounts().isValid ? (
                                                 'Category amounts match subtotal ✓'
@@ -318,7 +360,7 @@
                                 )}
 
                                 {/* Totals */}
-                                <div className="space-y-2 pt-4 border-t border-zinc-200">
+                                <div className="totals space-y-2 pt-4 border-t border-zinc-200">
                                     <div className="grid grid-cols-2 total-row">
                                         <span>Total Pre-Tax Amount:</span>
                                         <span className={`text-right ${subtotal && !validateAmounts().isValid ? 'text-red-600' : 'total-amount'}`}>

@@ -1,0 +1,50 @@
+.add-category-button {
+    border: 1px solid #ccc; /* Add a border */
+    padding: 10px 20px; /* Add some padding */
+    background-color: #f9f9f9; /* Set a background color */
+    cursor: pointer; /* Change cursor to pointer */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    transition: background-color 0.3s; /* Optional: Add a transition effect */
+}
+
+.add-category-button:hover {
+    background-color: #e0e0e0; /* Change background color on hover */
+}
+
+/* Additional styles for distinct elements */
+.card {
+    padding: 20px; /* Add padding */
+    border-radius: 8px; /* Rounded corners */
+}
+
+.input {
+    background-color: #ffffff; /* White background */
+    border: 1px solid #d1d9e6; /* Light grey border */
+    padding: 10px; /* Add padding */
+    border-radius: 4px; /* Rounded corners */
+}
+
+.tax-amount-display {
+    background-color: #f3f3f3; /* Light blue background */
+    border: 1px solid #9c9c9c; /* Light blue border */
+    padding: 10px; /* Add padding */
+    border-radius: 4px; /* Rounded corners */
+    color: #000000; /* Dark blue text */
+}
+
+.validation-message {
+    padding: 10px; /* Add padding */
+    border-radius: 4px; /* Rounded corners */
+}
+
+.validation-success {
+    background-color: #f6ffed; /* Light green background */
+    border: 1px solid #b7eb8f; /* Light green border */
+    color: #389e0d; /* Dark green text */
+}
+
+.validation-error {
+    background-color: #fff1f0; /* Light red background */
+    border: 1px solid #ffa39e; /* Light red border */
+    color: #cf1322; /* Dark red text */
+}
