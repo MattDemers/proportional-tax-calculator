@@ -22,7 +22,7 @@ I'd like to calculate how much of this remainder I should assign to each categor
 
 Below is a screenshot of how we'd add it to the calculator. We only need to add our Total (with tax), Subtotal, Categories, and Amount (pre-tax), and the calculator does the rest.
 
-![](/Images/screenshot.png?)
+![Screenshot of calculator example](/Images/screenshot.png?)
 
 As text:
 
