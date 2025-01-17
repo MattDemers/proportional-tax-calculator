@@ -399,6 +399,19 @@
                                         </div>
                                 )}
                             </div>
+                            <div className="-mt-2 text-left text-sm text-zinc-500">
+                                        <button 
+                                            className="underline"
+                                            onClick={() => setShowTutorial(!showTutorial)}
+                                        >
+                                    How do I use this?
+                                        </button>
+                                {showTutorial && (
+                                        <div className="mt-4 mb-2 text-left">
+                                            <p>Take your receipt; add your post-tax total, and your pre-tax total (subtotal). Then, add together all your receipt items of one type (Groceries, Home Goods, etc) according to your budget categories. Add one per "Category", and it'll show you how much of the remaining amount (the taxes) should be added to what you log in your budget. See the example in <a href="https://github.com/MattDemers/proportional-tax-calculator/blob/main/README.md">the README</a>.</p>
+                                        </div>
+                                )}
+                            </div>
                             </div>
                         </div>
                     </div>
